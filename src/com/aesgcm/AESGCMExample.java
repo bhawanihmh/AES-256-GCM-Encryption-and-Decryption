@@ -23,7 +23,6 @@ import javax.xml.bind.DatatypeConverter;
  * 
  */
 public class AESGCMExample {
-	static String plainText = "This is a plain text which need to be encrypted by Java AES 256 GCM Encryption Algorithm";
 	public static int AES_KEY_SIZE = 256;
 	public static final int GCM_IV_LENGTH = 12;
 	public static final int GCM_TAG_LENGTH = 16;
@@ -40,9 +39,9 @@ public class AESGCMExample {
 		try {
 			/* Get Cipher Instance
 			 Cipher name is made up of 3 parts :
-			 1. The first part is the name of the algorithm – AES
-			 2. The second part is the mode in which the algorithm should be used – GCM
-			 3. The third part is the padding scheme which is going to be used – NoPadding.
+			 1. The first part is the name of the algorithm â€“ AES
+			 2. The second part is the mode in which the algorithm should be used â€“ GCM
+			 3. The third part is the padding scheme which is going to be used â€“ NoPadding.
 			 Since GCM Mode transforms block encryption into stream encryption
 			 In cryptography, padding is any of a number of distinct practices which all
 			 include adding data to the beginning, middle, or end of a message prior to encryption
@@ -65,6 +64,14 @@ public class AESGCMExample {
 		}
 	}
 	
+	/**
+	 * Encrypt text
+	 * 
+	 * @param plaintext
+	 * @param IV
+	 * @return
+	 * @throws Exception
+	 */
 	public static byte[] encrypt(byte[] plaintext, byte[] IV) throws Exception {
 
 		// Create SecretKeySpec
@@ -96,13 +103,48 @@ public class AESGCMExample {
 		return cipherText;
 	}
 
+	/**
+	 * Generate secret key
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
 	private static SecretKey generateKey() throws Exception {
+		/*
+		 * This class represents a factory for secret keys. 
+		 * Key factories are used to convert keys (opaque cryptographic keys of type Key) 
+		 * into key specifications (transparent representations of the underlying key material), 
+		 * and vice versa. Secret key factories operate only on secret (symmetric) keys. 
+		 * 
+		 * Key factories are bi-directional, i.e., they allow to build an opaque key object 
+		 * from a given key specification (key material), or to retrieve the underlying key material 
+		 * of a key object in a suitable format.
+		 */
 		SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+		/*
+		 * A user-chosen password that can be used with password-based encryption (PBE). 
+		 * The password can be viewed as some kind of raw key material, from which the encryption 
+		 * mechanism that uses it derives a cryptographic key.
+		 * 
+		 * Different PBE mechanisms may consume different bits of each password character. 
+		 * For example, the PBE mechanism defined in PKCS #5 looks at only the low order 8 bits of each character, 
+		 * whereas PKCS #12 looks at all 16 bits of each character.
+		 */
 		KeySpec pbeKeySpec = new PBEKeySpec(PASS_PHRASE.toCharArray(), getSalt(), ITERATION_COUNT, AES_KEY_SIZE);
+		/*
+		 * A secret (symmetric) key. The purpose of this interface is to 
+		 * group (and provide type safety for) all secret key interfaces.
+		 */
 		SecretKey secretKey = new SecretKeySpec(secretKeyFactory.generateSecret(pbeKeySpec).getEncoded(), "AES");
 		return secretKey;
 	}
-
+	
+	/**
+	 * Get Salt
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
 	public static byte[] getSalt() throws Exception {
 		return DatatypeConverter.parseHexBinary(SALT);
 		/*
@@ -110,7 +152,15 @@ public class AESGCMExample {
 		 * byte[64]; sr.nextBytes(salt); return salt;
 		 */
 	}
-
+	
+	/**
+	 * Decript cipher text
+	 * 
+	 * @param cipherText
+	 * @param IV
+	 * @return
+	 * @throws Exception
+	 */
 	public static String decrypt(byte[] cipherText, byte[] IV) throws Exception {
 		// Get Cipher Instance
 		//Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
