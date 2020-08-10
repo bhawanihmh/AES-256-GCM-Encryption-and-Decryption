@@ -18,8 +18,8 @@ public class AESGCMTest {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		AESGCMExample aesGCMExample = new AESGCMExample(256,1);
-		String plainText = "Encrypted by Java AES 256 GCM Encryption Algorithm";
+		AESGCMExample aesGCMExample = new AESGCMExample(128,1);
+		String plainText = "Encrypted by Java AES-GCM Encryption Algorithm";
 		System.out.println("Original Text : " + plainText);
 
 		// The encryption and decryption are handled by the Cipher class.
