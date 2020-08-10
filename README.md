@@ -1,4 +1,4 @@
-# AES-256-GCM-Encryption-and-Decryption
+# AES-GCM-Encryption-and-Decryption
 Advanced Encryption Standard (AES) algorithm in Galois Counter Mode (GCM), known as AES-GCM.
 </br>
 AES-GCM is a block cipher mode of operation that provides high speed of authenticated encryption and data integrity. In GCM mode, the block encryption is transformed into stream encryption, and therefore no padding is needed. The Additional Authenticated Data (AAD) will not be encrypted but used in the computation of Authentication Tag. The authenticated encryption operation takes Initialization Vector (IV), Additional Authenticated Data (AAD), Secret Key and 128-bit plaintext and gives a 128-bit ciphertext and authentication tag
