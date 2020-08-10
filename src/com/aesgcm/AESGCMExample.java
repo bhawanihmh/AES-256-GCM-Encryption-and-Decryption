@@ -23,7 +23,7 @@ import javax.xml.bind.DatatypeConverter;
  * 
  */
 public class AESGCMExample {
-	public static int AES_KEY_SIZE = 256;
+	public static int AES_KEY_SIZE = 128;
 	public static final int GCM_IV_LENGTH = 12;
 	public static final int GCM_TAG_LENGTH = 16;
 	public static int ITERATION_COUNT = 1;
